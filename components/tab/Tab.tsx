@@ -21,7 +21,7 @@ const FALLBACK_ITEMS = [
     { label: 'संगठन संरचना', labelEn: 'Org Structure', path: '/pages/organization' },
     { label: 'सम्बद्ध संगठन', labelEn: 'Affiliates', path: '/pages/affiliates' },
   ]},
-  { label: 'जनप्रतिनिधि', labelEn: 'Representatives', path: '/pages/representatives', children: [] },
+  { label: 'नेतृत्व', labelEn: 'Representatives', path: '/pages/representatives', children: [] },
   { label: 'इतिहास', labelEn: 'History', path: '/pages/history', children: [] },
   { label: 'दस्तावेज', labelEn: 'Documents', path: '/pages/documents', children: [] },
   { label: 'डाउनलोड', labelEn: 'Downloads', path: '/downloads', children: [] },

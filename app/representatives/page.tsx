@@ -78,7 +78,7 @@ export default function RepresentativesPage() {
                 mb: 2,
               }}
             >
-              जनप्रतिनिधिहरू
+              नेतृत्व
             </Typography>
             <Typography
               variant="h5"

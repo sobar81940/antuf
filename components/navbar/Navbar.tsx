@@ -47,7 +47,7 @@ const STATIC_NAV = [
     { label: "संगठन संरचना", path: "/pages/organization" },
     { label: "सम्बद्ध संगठन", path: "/pages/affiliates" },
   ]},
-  { label: "जनप्रतिनिधि", path: "/pages/representatives", children: [] },
+  { label: "नेतृत्व", path: "/pages/representatives", children: [] },
   { label: "इतिहास", path: "/pages/history", children: [] },
   { label: "दस्तावेज", path: "/pages/documents", children: [] },
   { label: "डाउनलोड", path: "/downloads", children: [] },

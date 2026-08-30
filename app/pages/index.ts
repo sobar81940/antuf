@@ -11,7 +11,7 @@ export const staticPages = [
   },
   {
     id: 'representatives',
-    title: 'जनप्रतिनिधि / Representatives',
+    title: 'नेतृत्व/ Representatives',
     path: '/pages/representatives',
     description: 'संगठनका प्रतिनिधिहरू',
     icon: '👥',

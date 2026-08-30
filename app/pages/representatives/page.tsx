@@ -165,7 +165,7 @@ export default function RepresentativesPage() {
           <Container maxWidth="lg" sx={{ position: 'relative' }}>
             <Typography sx={{ color: COLORS.coral, fontWeight: 800, letterSpacing: 2, mb: 1 }}>OUR REPRESENTATIVES</Typography>
             <Typography component="h1" sx={{ color: '#fff', fontWeight: 800, fontSize: { xs: '2.2rem', md: '3.2rem' }, lineHeight: 1.15 }}>
-              जनप्रतिनिधिहरू
+             नेतृत्व
             </Typography>
             <Typography sx={{ color: 'rgba(255,255,255,.75)', mt: 2, maxWidth: 720 }}>
               ANTUF को नेतृत्व टोली — श्रमिक अधिकार र सामाजिक न्यायका लागि समर्पित।
