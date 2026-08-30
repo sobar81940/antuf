@@ -5,6 +5,7 @@ import {
   Box,
   TextField,
   Button,
+  Typography,
   CircularProgress,
   Alert,
   MenuItem,
@@ -13,6 +14,13 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import ImageUpload from "@/utility/ImageUpload";
+import { stripHtml } from "@/utility/richText";
+import dynamic from "next/dynamic";
+
+const RichTextEditor = dynamic(
+  () => import("@/components/admin/Articles/TiptapEditor"),
+  { ssr: false }
+);
 
 const ActivityEditForm = ({ initialValues, onSubmit, onCancel, loading }) => {
   const theme = useTheme();
@@ -59,6 +67,13 @@ const ActivityEditForm = ({ initialValues, onSubmit, onCancel, loading }) => {
     }));
   };
 
+  const handleDescriptionChange = (html: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      description: html,
+    }));
+  };
+
   const handleImageChange = (file) => {
     if (!file) return;
     setImageFile(file);
@@ -78,7 +93,7 @@ const ActivityEditForm = ({ initialValues, onSubmit, onCancel, loading }) => {
     e.preventDefault();
     setError("");
 
-    if (!formData.title || !formData.description) {
+    if (!formData.title || !stripHtml(formData.description)) {
       setError("Please fill in all required fields");
       return;
     }
@@ -154,18 +169,17 @@ const ActivityEditForm = ({ initialValues, onSubmit, onCancel, loading }) => {
         size={isSmallScreen ? "small" : "medium"}
       />
 
-      <TextField
-        fullWidth
-        required
-        label="Description"
-        name="description"
+      <Typography sx={{ mb: 1, fontWeight: 700, color: "#183b3f" }}>
+        Description <Box component="span" sx={{ color: "#d32f2f" }}>*</Box>
+      </Typography>
+      <RichTextEditor
         value={formData.description}
-        onChange={handleChange}
-        margin="normal"
-        multiline
-        rows={3}
-        size={isSmallScreen ? "small" : "medium"}
+        onChange={handleDescriptionChange}
+        folder="antuf/activities"
       />
+      <Typography variant="caption" sx={{ color: "#678084", mt: 1, mb: 2, display: "block" }}>
+        Write the activity story. Use the toolbar to format text and the 🖼️ button to insert images.
+      </Typography>
 
       <TextField
         fullWidth

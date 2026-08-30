@@ -21,10 +21,13 @@ const FALLBACK_ITEMS = [
     { label: 'संगठन संरचना', labelEn: 'Org Structure', path: '/pages/organization' },
     { label: 'सम्बद्ध संगठन', labelEn: 'Affiliates', path: '/pages/affiliates' },
   ]},
-  { label: 'नेतृत्व', labelEn: 'Representatives', path: '/pages/representatives', children: [] },
+  { label: 'नेतृत्व', labelEn: 'Leadership', path: '/pages/leadership', children: [] },
   { label: 'इतिहास', labelEn: 'History', path: '/pages/history', children: [] },
   { label: 'दस्तावेज', labelEn: 'Documents', path: '/pages/documents', children: [] },
-  { label: 'डाउनलोड', labelEn: 'Downloads', path: '/downloads', children: [] },
+  { label: 'मिडिया', labelEn: 'Media', path: '', children: [
+    { label: 'फोटो ग्यालरी', labelEn: 'Photo Gallery', path: '/pages/gallery' },
+    { label: 'भिडियो ग्यालरी', labelEn: 'Video Gallery', path: '/pages/videos' },
+  ]},
   { label: 'सम्पर्क', labelEn: 'Contact', path: '/pages/contact', children: [] },
 ];
 

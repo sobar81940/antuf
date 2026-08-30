@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
+import bcrypt from "bcrypt";
 import { authOptions } from "@/utils/authOptions";
 import dbConnect from "@/utils/dbConnect";
 import Committee from "@/models/Committee";
+import User from "@/models/user";
 
 async function requireAdmin() {
   const session = await getServerSession(authOptions);
@@ -21,7 +23,8 @@ export async function POST(request, context) {
     const params = await context.params;
     const { committeeId } = params;
 
-    const { memberIds, memberDetails = [] } = await request.json();
+    const body = await request.json();
+    const { memberIds = [], memberDetails = [], customMember } = body;
     if (!Array.isArray(memberIds)) {
       return NextResponse.json({ error: "memberIds must be an array" }, { status: 400 });
     }
@@ -30,6 +33,43 @@ export async function POST(request, context) {
     }
 
     await dbConnect();
+
+    let customUserId = null;
+    if (customMember?.email) {
+      const email = String(customMember.email).trim().toLowerCase();
+      const name = String(customMember.name || email.split("@")[0]).trim();
+      const position = String(customMember.position || "सदस्य").trim();
+      const image = customMember.image || "";
+      let existingUser = await User.findOne({ email });
+
+      if (!existingUser) {
+        existingUser = await User.create({
+          name,
+          email,
+          phone: customMember.phone || "",
+          image,
+          password: await bcrypt.hash("defaultPassword123", 10),
+          role: "user",
+          isActive: true,
+          organization: customMember.organization || "",
+          committeeLevel: customMember.committeeLevel || "",
+          committeeName: customMember.committeeName || "",
+          committeeLocation: customMember.committeeLocation || "",
+          committeePosition: position,
+        });
+      }
+
+      customUserId = existingUser._id.toString();
+      if (!memberIds.includes(customUserId)) {
+        memberIds.push(customUserId);
+      }
+      const existingDetailIndex = memberDetails.findIndex(
+        (detail) => (detail.member?._id || detail.member)?.toString() === customUserId
+      );
+      if (existingDetailIndex === -1) {
+        memberDetails.push({ member: customUserId, position });
+      }
+    }
 
     const committee = await Committee.findByIdAndUpdate(
       committeeId,

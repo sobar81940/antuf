@@ -35,6 +35,34 @@ export const fetchActivities = createAsyncThunk(
   }
 );
 
+export const fetchHomeActivities = createAsyncThunk(
+  "activities/fetchHomeActivities",
+  async (_, { rejectWithValue }) => {
+    try {
+      // Latest 3 activities (sorted by createdAt desc) for the homepage slider
+      const response = await fetch('/api/admin/activities?limit=3', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error("Home activities API error:", errorData);
+        return rejectWithValue(`Failed to fetch activities: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Home activities fetch error:", error);
+      toast.error(`Error loading activities: ${error.message}`);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchActivityById = createAsyncThunk(
   "activities/fetchActivityById",
   async (id: string, { rejectWithValue }) => {
@@ -152,6 +180,19 @@ const activitySlice = createSlice({
         state.activities = action.payload;
       })
       .addCase(fetchActivities.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error.message;
+      })
+      // Fetch home activities (latest 3 for the homepage slider)
+      .addCase(fetchHomeActivities.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchHomeActivities.fulfilled, (state, action) => {
+        state.loading = false;
+        state.activities = action.payload;
+      })
+      .addCase(fetchHomeActivities.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || action.error.message;
       })

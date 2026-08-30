@@ -39,6 +39,7 @@ export async function POST(req) {
       updated: 0,
       errors: [],
       total: users.length,
+      members: [],
     };
 
     // Process each user
@@ -64,6 +65,7 @@ export async function POST(req) {
           const updateData = {
             name: userData.name || existingUser.name,
             phone: userData.phone || existingUser.phone,
+            image: userData.image || existingUser.image,
             bio: userData.bio || existingUser.bio,
             role: userData.role || existingUser.role,
             isActive: userData.isActive !== undefined ? userData.isActive : existingUser.isActive,
@@ -95,8 +97,15 @@ export async function POST(req) {
             membershipNumber: userData.membershipNumber || existingUser.membershipNumber,
           };
 
-          await User.findByIdAndUpdate(existingUser._id, updateData, { new: true });
+          const updatedUser = await User.findByIdAndUpdate(existingUser._id, updateData, { new: true });
           results.updated++;
+          if (updatedUser) {
+            results.members.push({
+              _id: updatedUser._id.toString(),
+              email: updatedUser.email,
+              name: updatedUser.name,
+            });
+          }
         } else {
           // Create new user
           const newUserData = {
@@ -104,6 +113,7 @@ export async function POST(req) {
             email: userData.email.toLowerCase(),
             password: await bcrypt.hash('defaultPassword123', 10), // Default password
             phone: userData.phone || '',
+            image: userData.image || '',
             bio: userData.bio || '',
             role: userData.role || 'user',
             isActive: userData.isActive !== undefined ? userData.isActive : true,
@@ -135,8 +145,13 @@ export async function POST(req) {
             membershipNumber: userData.membershipNumber || '',
           };
 
-          await User.create(newUserData);
+          const createdUser = await User.create(newUserData);
           results.imported++;
+          results.members.push({
+            _id: createdUser._id.toString(),
+            email: createdUser.email,
+            name: createdUser.name,
+          });
         }
       } catch (error) {
         console.error(`❌ Error processing user at row ${i + 1}:`, {

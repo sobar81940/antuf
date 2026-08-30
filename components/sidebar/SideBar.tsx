@@ -91,7 +91,7 @@ const menuItems = [
       { label: "पेशागत सङ्घ / Organization Chart", path: "organization" },
       { label: "महिला समिति / Women's Committee", path: "organization/women" },
       { label: "युवा समिति / Youth Committee", path: "organization/youth" },
-      { label: "जनप्रतिनिधि / Representatives", path: "representatives" },
+      { label: "नेतृत्व / Leadership", path: "leadership" },
       { label: "सम्बद्ध संगठन / Affiliates", path: "affiliates" },
       { label: "User Management", path: "alluser" },
       { label: "All Members", path: "member" },

@@ -18,7 +18,14 @@ import { ImageOutlined, SaveOutlined } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { createActivity } from "@/slice/activitySlice";
 import ImageUpload from "@/utility/ImageUpload";
+import { stripHtml } from "@/utility/richText";
 import { toast } from "react-toastify";
+import dynamic from "next/dynamic";
+
+const RichTextEditor = dynamic(
+  () => import("@/components/admin/Articles/TiptapEditor"),
+  { ssr: false }
+);
 
 const ActivityForm = () => {
   const dispatch = useAppDispatch();
@@ -65,6 +72,13 @@ const ActivityForm = () => {
     }));
   };
 
+  const handleDescriptionChange = (html: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      description: html,
+    }));
+  };
+
   const uploadImageToCloudinary = async (imageFile) => {
     const formData = new FormData();
     formData.append("file", imageFile);
@@ -96,7 +110,7 @@ const ActivityForm = () => {
     setLocalError("");
     setLocalSuccess(false);
 
-    if (!formData.title || !formData.description) {
+    if (!formData.title || !stripHtml(formData.description)) {
       setLocalError("Please fill in all required fields");
       return;
     }
@@ -161,8 +175,18 @@ const ActivityForm = () => {
 
             <TextField fullWidth label="Title" name="title" required value={formData.title} onChange={handleChange} size={isSmallScreen ? "small" : "medium"} sx={{ mb: 2 }} />
 
-            <TextField fullWidth label="Description" name="description" required value={formData.description} onChange={handleChange} multiline rows={4} size={isSmallScreen ? "small" : "medium"} sx={{ mb: 2 }} />
-            <Typography sx={{ mt: 1, mb: 2, fontWeight: 800, color: "#183b3f" }}>Schedule and ownership</Typography>
+            <Typography sx={{ mb: 1, fontWeight: 700, color: "#183b3f" }}>
+              Description <Box component="span" sx={{ color: "#d32f2f" }}>*</Box>
+            </Typography>
+            <RichTextEditor
+              value={formData.description}
+              onChange={handleDescriptionChange}
+              folder="antuf/activities"
+            />
+            <Typography variant="caption" sx={{ color: "#678084", mt: 1, display: "block" }}>
+              Write the activity story. Use the toolbar to format text and the 🖼️ button to insert images.
+            </Typography>
+            <Typography sx={{ mt: 3, mb: 2, fontWeight: 800, color: "#183b3f" }}>Schedule and ownership</Typography>
           </Box>
 
           <Box sx={{ bgcolor: "#f5f9f8", border: "1px solid #dce7e6", borderRadius: 2, p: 2 }}>

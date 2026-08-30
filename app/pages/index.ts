@@ -10,10 +10,10 @@ export const staticPages = [
     icon: '📖',
   },
   {
-    id: 'representatives',
-    title: 'नेतृत्व/ Representatives',
-    path: '/pages/representatives',
-    description: 'संगठनका प्रतिनिधिहरू',
+    id: 'leadership',
+    title: 'नेतृत्व/ Leadership',
+    path: '/pages/leadership',
+    description: 'संगठनका नेताहरू',
     icon: '👥',
   },
   {
@@ -64,6 +64,20 @@ export const staticPages = [
     path: '/pages/affiliates',
     description: 'हाम्रा सम्बद्ध संगठनहरू',
     icon: '🤝',
+  },
+  {
+    id: 'gallery',
+    title: 'फोटो ग्यालरी / Photo Gallery',
+    path: '/pages/gallery',
+    description: 'हाम्रा तस्बिरहरू',
+    icon: '📷',
+  },
+  {
+    id: 'videos',
+    title: 'भिडियो ग्यालरी / Video Gallery',
+    path: '/pages/videos',
+    description: 'हाम्रा भिडियोहरू',
+    icon: '🎬',
   },
 ];
 

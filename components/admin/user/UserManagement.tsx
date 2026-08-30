@@ -27,6 +27,7 @@ import {
 import { useState, useEffect } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import KeyIcon from '@mui/icons-material/Key';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -243,6 +244,36 @@ export default function UserManagement() {
     } catch (err) {
       setError(err.message);
       console.error('Error deleting user:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (userId, userName) => {
+    if (!confirm(`Reset password for ${userName || 'this user'} to the default password?`)) return;
+
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/admin/users/${userId}/profile`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: 'defaultPassword123' }),
+        credentials: 'include',
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.err || data.error || 'Failed to reset password');
+      }
+
+      toast.success('Password reset successfully');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to reset password';
+      setError(message);
+      toast.error(message);
+      console.error('Error resetting password:', err);
     } finally {
       setLoading(false);
     }
@@ -805,6 +836,14 @@ export default function UserManagement() {
                           sx={{ mr: 1 }}
                         >
                           Edit
+                        </Button>
+                        <Button
+                          size="small"
+                          startIcon={<KeyIcon />}
+                          onClick={() => handleResetPassword(user._id, user.name)}
+                          sx={{ mr: 1 }}
+                        >
+                          Reset Password
                         </Button>
                         <Button
                           size="small"

@@ -111,7 +111,7 @@ export default function ContactRedesign() {
   const fieldSx = { "& .MuiOutlinedInput-root": { borderRadius: 1.5, bgcolor: "#fff" } };
   const contactChannels: Array<[React.ComponentType, string, string, string]> = [
     [Email, t.general, "info@antuf.org", "mailto:info@antuf.org"],
-    [Phone, t.support, "+977-01-4602758", "tel:+977014602758"],
+    [Phone, t.support, "+977-01-4602761", "tel:+977014602758"],
     [LocationOn, t.office, "Koteswor, Kathmandu", "#office"],
   ];
 

@@ -48,6 +48,7 @@ import {
     Visibility as VisibilityIcon,
     VisibilityOff as VisibilityOffIcon,
     Close as CloseIcon,
+    Star as StarIcon,
 } from "@mui/icons-material";
 
 const POSITIONS_NEPALI = [
@@ -314,6 +315,53 @@ export default function RepresentativesAdmin() {
         }
     };
 
+    const handleSetLeadership = async (rep) => {
+        if (!rep) return;
+
+        try {
+            const currentLeader = representatives.find((item) => item.position === "अध्यक्ष" && item._id !== rep._id);
+            const updatePromises = [];
+
+            if (currentLeader) {
+                updatePromises.push(
+                    fetch(`/api/admin/representatives/${currentLeader._id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            ...currentLeader,
+                            position: "सदस्य",
+                            positionEn: "Member",
+                        }),
+                    })
+                );
+            }
+
+            updatePromises.push(
+                fetch(`/api/admin/representatives/${rep._id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        ...rep,
+                        position: "अध्यक्ष",
+                        positionEn: "President",
+                    }),
+                })
+            );
+
+            const responses = await Promise.all(updatePromises);
+            const failed = responses.find((response) => !response.ok);
+            if (failed) {
+                throw new Error("Failed to update leadership");
+            }
+
+            showSnackbar("Leadership updated successfully", "success");
+            fetchRepresentatives();
+        } catch (error) {
+            console.error("Error updating leadership:", error);
+            showSnackbar("Error updating leadership", "error");
+        }
+    };
+
     const handleImageUpload = async (event) => {
         const file = event.target.files?.[0];
         if (!file) return;
@@ -402,9 +450,17 @@ export default function RepresentativesAdmin() {
                         <Typography sx={{ color: "#667eea", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", mb: 0.75 }}>
                             Organization directory
                         </Typography>
-                        <Typography variant="h4" component="h1" fontWeight={750} sx={{ color: "#182230", fontSize: { xs: "1.65rem", sm: "2.15rem" } }}>
-                            Representatives
-                        </Typography>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
+                            <Typography variant="h4" component="h1" fontWeight={750} sx={{ color: "#182230", fontSize: { xs: "1.65rem", sm: "2.15rem" } }}>
+                                leadership 
+                            </Typography>
+                            <Chip
+                                label={`# ${representatives.length}`}
+                                color="primary"
+                                variant="outlined"
+                                sx={{ fontWeight: 700, borderRadius: "999px" }}
+                            />
+                        </Box>
                         <Typography sx={{ color: "#667085", mt: 0.5, fontSize: "0.92rem" }}>
                             Manage public-facing leadership profiles and contact details.
                         </Typography>
@@ -581,6 +637,15 @@ export default function RepresentativesAdmin() {
                                                 />
                                             </TableCell>
                                             <TableCell align="center">
+                                                <Tooltip title={rep.position === "अध्यक्ष" ? "Current Leadership" : "Set as Leadership"}>
+                                                    <IconButton
+                                                        size="small"
+                                                        color={rep.position === "अध्यक्ष" ? "warning" : "primary"}
+                                                        onClick={() => handleSetLeadership(rep)}
+                                                    >
+                                                        <StarIcon />
+                                                    </IconButton>
+                                                </Tooltip>
                                                 <Tooltip title="Edit">
                                                     <IconButton
                                                         size="small"

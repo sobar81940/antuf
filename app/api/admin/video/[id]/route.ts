@@ -9,6 +9,9 @@ export async function PUT(req, context) {
     const body = await req.json();
     console.log("Received update data:", body);
 
+    // Next.js 16 async params: must be awaited before reading `.id`
+    const params = await context.params;
+
     if (!body.title) {
       return NextResponse.json(
         { error: "Title is required" },
@@ -29,7 +32,7 @@ export async function PUT(req, context) {
     );
 
     const video = await Video.findByIdAndUpdate(
-      context.params.id,
+      params.id,
       { $set: updateData },
       {
         new: true,
@@ -81,7 +84,8 @@ export async function DELETE(req, context) {
   try {
     await dbConnect();
 
-    const video = await Video.findByIdAndDelete(context.params.id);
+    const params = await context.params;
+    const video = await Video.findByIdAndDelete(params.id);
 
     if (!video) {
       return NextResponse.json(
@@ -105,7 +109,8 @@ export async function GET(req, context) {
   try {
     await dbConnect();
 
-    const video = await Video.findById(context.params.id);
+    const params = await context.params;
+    const video = await Video.findById(params.id);
 
     if (!video) {
       return NextResponse.json(

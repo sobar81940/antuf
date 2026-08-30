@@ -19,7 +19,9 @@ export async function PUT(req, context) {
   await dbConnect();
   const body = await req.json();
   const { updatedSection, sectionId, search } = body;
-  const id = context?.params?.id;
+  // Next.js 16 async params: must be awaited before reading `.id`
+  const params = await context.params;
+  const id = params?.id;
 
   try {
     const article = await Articles.findById(search);
@@ -50,6 +52,8 @@ export async function DELETE(req, context) {
   const body = await req.json();
   try {
     const { sectionId, search } = body;
+    // Next.js 16 async params: must be awaited before reading `.id`
+    const params = await context.params;
     const article = await Articles.findById(search);
     if (!article) {
       return NextResponse.json({ err: "Article not found" });
@@ -59,11 +63,11 @@ export async function DELETE(req, context) {
       return NextResponse.json({ err: "Section not found" });
     }
     
-    if (!context?.params?.id) {
+    if (!params?.id) {
       return NextResponse.json({ err: "Lecture ID is required" }, { status: 400 });
     }
     
-    const lectureId = context.params.id.toString();
+    const lectureId = params.id.toString();
     
     if (!section.lectures || !Array.isArray(section.lectures)) {
       return NextResponse.json({ err: "No lectures found in this section" }, { status: 404 });

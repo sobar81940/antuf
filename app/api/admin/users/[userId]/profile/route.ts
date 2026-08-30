@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 import dbConnect from "@/utils/dbConnect";
 import User from "@/models/user";
 import { getServerSession } from "next-auth/next";
@@ -105,6 +106,7 @@ export async function PATCH(req, context) {
       "bio",
       "isActive",
       "role",
+      "password",
       "motherName",
       "fatherName",
       "citizenshipNumber",
@@ -118,11 +120,12 @@ export async function PATCH(req, context) {
       "committeePosition",
     ];
 
-    allowedFields.forEach((field) => {
+    for (const field of allowedFields) {
       if (updateData[field] !== undefined) {
-        safeUpdates[field] = updateData[field];
+        safeUpdates[field] =
+          field === "password" ? await bcrypt.hash(String(updateData[field]), 10) : updateData[field];
       }
-    });
+    }
 
     const updatedUser = await User.findByIdAndUpdate(userId, safeUpdates, {
       new: true,

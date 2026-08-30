@@ -80,7 +80,10 @@ export async function DELETE(req, context) {
   try {
     await dbConnect();
 
-    const article = await Articles.findByIdAndDelete(context.params.id);
+    // Next.js 16 async params: must be awaited before reading `.id`
+    const params = await context.params;
+
+    const article = await Articles.findByIdAndDelete(params.id);
 
     if (!article) {
       return NextResponse.json(

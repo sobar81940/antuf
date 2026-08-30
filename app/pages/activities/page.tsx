@@ -29,6 +29,7 @@ import {
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
+import { stripHtml } from '@/utility/richText';
 
 type ActivityItem = {
   _id?: string;
@@ -277,8 +278,18 @@ const ActivitiesPage = () => {
                               />
                             </Box>
 
-                            <Typography variant="body2" color="text.secondary" paragraph>
-                              {activity.description || 'No description available.'}
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              paragraph
+                              sx={{
+                                display: '-webkit-box',
+                                WebkitLineClamp: 3,
+                                WebkitBoxOrient: 'vertical',
+                                overflow: 'hidden',
+                              }}
+                            >
+                              {stripHtml(activity.description) || 'No description available.'}
                             </Typography>
 
                             {activity.location && (

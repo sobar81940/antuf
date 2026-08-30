@@ -47,10 +47,13 @@ const STATIC_NAV = [
     { label: "संगठन संरचना", path: "/pages/organization" },
     { label: "सम्बद्ध संगठन", path: "/pages/affiliates" },
   ]},
-  { label: "नेतृत्व", path: "/pages/representatives", children: [] },
+  { label: "नेतृत्व", path: "/pages/leadership", children: [] },
   { label: "इतिहास", path: "/pages/history", children: [] },
   { label: "दस्तावेज", path: "/pages/documents", children: [] },
-  { label: "डाउनलोड", path: "/downloads", children: [] },
+  { label: "मिडिया", path: "", children: [
+    { label: "फोटो ग्यालरी", path: "/pages/gallery" },
+    { label: "भिडियो ग्यालरी", path: "/pages/videos" },
+  ]},
   { label: "सम्पर्क", path: "/pages/contact", children: [] },
 ];
 
@@ -378,14 +381,14 @@ const Navbar = () => {
                 bgcolor: "rgba(0,0,0,0.3)", 
                 color: "white",
                 '&:hover': { bgcolor: "rgba(0,0,0,0.5)" }
-              }}>
+              }} onClick={() => router.push("/pages/gallery")}>
                 <Typography sx={{ fontSize: "1.2rem" }}>📷</Typography>
               </IconButton>
               <IconButton sx={{ 
                 bgcolor: "rgba(0,0,0,0.3)", 
                 color: "white",
                 '&:hover': { bgcolor: "rgba(0,0,0,0.5)" }
-              }}>
+              }} onClick={() => router.push("/pages/videos")}>
                 <Typography sx={{ fontSize: "1.2rem" }}>▶</Typography>
               </IconButton>
             </Box>

@@ -15,7 +15,7 @@ type GalleryImage = {
   category?: string;
 };
 
-export default function ImageGallery({ category }: { category?: string }) {
+export default function ImageGallery({ category, showHeader = true }: { category?: string; showHeader?: boolean }) {
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   // Which group's lightbox is open and the index of the image inside it.
@@ -97,11 +97,13 @@ export default function ImageGallery({ category }: { category?: string }) {
     <>
       <Box component="section" sx={{ bgcolor: '#f4f1eb', py: { xs: 7, md: 10 } }}>
         <Container maxWidth="lg">
-          <Box sx={{ mb: 4 }}>
-            <Typography sx={{ color: '#e76f51', fontWeight: 800, letterSpacing: 1 }}>FROM THE FIELD</Typography>
-            <Typography component="h2" sx={{ color: '#102c3b', fontWeight: 800, fontSize: { xs: '2rem', md: '3rem' } }}>हाम्रा झलकहरू</Typography>
-            <Typography sx={{ color: '#68777b', mt: 1 }}>Our work, people and shared moments.</Typography>
-          </Box>
+          {showHeader && (
+            <Box sx={{ mb: 4 }}>
+              <Typography sx={{ color: '#e76f51', fontWeight: 800, letterSpacing: 1 }}>FROM THE FIELD</Typography>
+              <Typography component="h2" sx={{ color: '#102c3b', fontWeight: 800, fontSize: { xs: '2rem', md: '3rem' } }}>हाम्रा झलकहरू</Typography>
+              <Typography sx={{ color: '#68777b', mt: 1 }}>Our work, people and shared moments.</Typography>
+            </Box>
+          )}
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }, gap: 3 }}>
             {groups.map((group, groupIndex) => {
               const isExpanded = expandedCategory === group.category;

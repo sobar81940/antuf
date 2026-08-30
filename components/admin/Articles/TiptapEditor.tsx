@@ -7,13 +7,13 @@ import Image from "@tiptap/extension-image";
 import { Box, CircularProgress, Divider, IconButton, Tooltip } from "@mui/material";
 import { Code as CodeIcon, FormatBold as BoldIcon, FormatItalic as ItalicIcon, FormatListBulleted as BulletListIcon, FormatListNumbered as OrderedListIcon, FormatQuote as QuoteIcon, Image as ImageIcon, Redo as RedoIcon, Title as HeadingIcon, Undo as UndoIcon } from "@mui/icons-material";
 
-type TiptapEditorProps = { value: string; onChange: (value: string) => void };
+type TiptapEditorProps = { value: string; onChange: (value: string) => void; folder?: string };
 
 const ToolButton = ({ label, active, onClick, children }: any) => (
   <Tooltip title={label}><span><IconButton size="small" color={active ? "primary" : "default"} onClick={onClick} aria-label={label}>{children}</IconButton></span></Tooltip>
 );
 
-export default function TiptapEditor({ value, onChange }: TiptapEditorProps) {
+export default function TiptapEditor({ value, onChange, folder }: TiptapEditorProps) {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const editor = useEditor({
@@ -37,7 +37,7 @@ export default function TiptapEditor({ value, onChange }: TiptapEditorProps) {
       setUploadingImage(true);
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("folder", "antuf/articles");
+      formData.append("folder", folder || "antuf/articles");
       const response = await fetch("/api/upload", { method: "POST", body: formData, credentials: "include" });
       const payload = await response.json();
       if (!response.ok || !payload.success) throw new Error(payload.error || "Image upload failed");

@@ -60,6 +60,15 @@ export default function CommitteeWorkspacePage() {
   const [memberId, setMemberId] = useState("");
   const [position, setPosition] = useState("");
   const [search, setSearch] = useState("");
+  const [customMember, setCustomMember] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    position: "",
+    location: "",
+    image: "",
+  });
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const loadData = useCallback(async () => {
     if (!associationId || !committeeId) return;
@@ -94,21 +103,85 @@ export default function CommitteeWorkspacePage() {
     });
   }, [committee, members, search]);
 
+  const handleCustomImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    setError("");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("folder", "antuf/committee-members");
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data?.url) {
+        throw new Error(data?.error || "Failed to upload image");
+      }
+
+      setCustomMember((current) => ({ ...current, image: data.url }));
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : "Failed to upload image");
+    } finally {
+      setUploadingImage(false);
+      event.target.value = "";
+    }
+  };
+
   const addMember = async () => {
-    if (!memberId || !position || !committee) return;
+    if (!committee) return;
+
+    const hasExistingMember = Boolean(memberId && position);
+    const hasCustomMember = Boolean(customMember.name.trim() && customMember.email.trim());
+    if (!hasExistingMember && !hasCustomMember) {
+      setError("Please select an existing member or fill out the custom member form.");
+      return;
+    }
+
     setSaving(true);
     setError("");
     try {
-      const memberIds = [...(committee.members || []).map((member) => member._id), memberId];
-      const memberDetails = [
-        ...(committee.memberDetails || []).map((detail) => ({ member: detail.member?._id || detail.member, position: detail.position })),
-        { member: memberId, position },
-      ];
+      const existingIds = new Set((committee.members || []).map((member) => member._id));
+      const memberDetails = [...(committee.memberDetails || []).map((detail) => ({
+        member: detail.member?._id || detail.member,
+        position: detail.position,
+      }))];
+
+      if (hasExistingMember) {
+        existingIds.add(memberId);
+        memberDetails.push({ member: memberId, position });
+      }
+
+      const payload: any = {
+        memberIds: [...existingIds],
+        memberDetails,
+      };
+
+      if (hasCustomMember) {
+        payload.customMember = {
+          name: customMember.name.trim(),
+          email: customMember.email.trim(),
+          phone: customMember.phone.trim(),
+          image: customMember.image || "",
+          organization: committee?.association || "",
+          committeeLevel: committee?.type || "",
+          committeeName: committee?.name || "",
+          committeeLocation: committeeLocation(committee),
+          position: customMember.position.trim() || "सदस्य",
+        };
+      }
+
       const response = await fetch(`/api/admin/associations/${associationId}/committees/${committeeId}/members`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ memberIds, memberDetails }),
+        body: JSON.stringify(payload),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Unable to add member");
@@ -117,6 +190,7 @@ export default function CommitteeWorkspacePage() {
       setMemberId("");
       setPosition("");
       setSearch("");
+      setCustomMember({ name: "", email: "", phone: "", position: "", location: "", image: "" });
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : "Unable to add member");
     } finally {
@@ -222,11 +296,68 @@ export default function CommitteeWorkspacePage() {
           )}
         </DialogTitle>
         <DialogContent>
-          <TextField fullWidth size="small" label="सदस्य खोज्नुहोस्" value={search} onChange={(event) => setSearch(event.target.value)} sx={{ mt: 1, mb: 2 }} />
-          <FormControl fullWidth size="small"><InputLabel>सदस्य</InputLabel><Select label="सदस्य" value={memberId} onChange={(event) => setMemberId(event.target.value)}>{availableMembers.map((member) => <MenuItem key={member._id} value={member._id}>{member.name} ({member.email})</MenuItem>)}</Select></FormControl>
-          <FormControl fullWidth size="small" sx={{ mt: 2 }}><InputLabel>पद</InputLabel><Select label="पद" value={position} onChange={(event) => setPosition(event.target.value)}>{memberPositions.map((item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}</Select></FormControl>
+          <Box sx={{ mb: 3 }}>
+            <Typography variant="subtitle1" fontWeight={800} sx={{ mb: 1 }}>Assign existing user</Typography>
+            <TextField fullWidth size="small" label="सदस्य खोज्नुहोस्" value={search} onChange={(event) => setSearch(event.target.value)} sx={{ mb: 2 }} />
+            <FormControl fullWidth size="small"><InputLabel>सदस्य</InputLabel><Select label="सदस्य" value={memberId} onChange={(event) => setMemberId(event.target.value)}>{availableMembers.map((member) => <MenuItem key={member._id} value={member._id}>{member.name} ({member.email})</MenuItem>)}</Select></FormControl>
+            <FormControl fullWidth size="small" sx={{ mt: 2 }}><InputLabel>पद</InputLabel><Select label="पद" value={position} onChange={(event) => setPosition(event.target.value)}>{memberPositions.map((item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}</Select></FormControl>
+          </Box>
+
+          <Box sx={{ borderTop: "1px solid #e2e9ed", pt: 2.5 }}>
+            <Typography variant="subtitle1" fontWeight={800} sx={{ mb: 1.5 }}>Add custom member</Typography>
+            <Stack spacing={2} alignItems="center">
+              <Box sx={{ textAlign: "center" }}>
+                <Avatar src={customMember.image || ""} sx={{ width: 72, height: 72, mb: 1, mx: "auto", bgcolor: "#dfeaf2" }}>
+                  {customMember.name?.[0]?.toUpperCase() || "U"}
+                </Avatar>
+                <Button variant="outlined" component="label" size="small" disabled={uploadingImage}>
+                  {uploadingImage ? "Uploading..." : "Upload Image"}
+                  <input hidden accept="image/*" type="file" onChange={handleCustomImageUpload} />
+                </Button>
+              </Box>
+              <TextField
+                fullWidth
+                size="small"
+                label="Name"
+                value={customMember.name}
+                onChange={(event) => setCustomMember((current) => ({ ...current, name: event.target.value }))}
+              />
+              <TextField
+                fullWidth
+                size="small"
+                label="Email"
+                type="email"
+                value={customMember.email}
+                onChange={(event) => setCustomMember((current) => ({ ...current, email: event.target.value }))}
+              />
+              <TextField
+                fullWidth
+                size="small"
+                label="Phone"
+                value={customMember.phone}
+                onChange={(event) => setCustomMember((current) => ({ ...current, phone: event.target.value }))}
+              />
+              <TextField
+                fullWidth
+                size="small"
+                label="Location"
+                value={customMember.location}
+                onChange={(event) => setCustomMember((current) => ({ ...current, location: event.target.value }))}
+              />
+              <FormControl fullWidth size="small">
+                <InputLabel>Custom member position</InputLabel>
+                <Select
+                  label="Custom member position"
+                  value={customMember.position}
+                  onChange={(event) => setCustomMember((current) => ({ ...current, position: event.target.value }))}
+                >
+                  {memberPositions.map((item) => <MenuItem key={item} value={item}>{item}</MenuItem>)}
+                </Select>
+              </FormControl>
+            </Stack>
+          </Box>
         </DialogContent>
-        <DialogActions sx={{ px: 3, py: 2 }}><Button onClick={() => setAddOpen(false)} disabled={saving}>Cancel</Button><Button variant="contained" onClick={addMember} disabled={!memberId || !position || saving}>{saving ? "Adding..." : "Add member"}</Button></DialogActions>
+        <DialogActions sx={{ px: 3, py: 2 }}><Button onClick={() => setAddOpen(false)} disabled={saving}>Cancel</Button><Button variant="contained" onClick={addMember} disabled={saving}>{saving ? "Adding..." : "Add member"}</Button></DialogActions>
       </Dialog>
     </Box>
   );

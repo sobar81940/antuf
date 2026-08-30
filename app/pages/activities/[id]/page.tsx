@@ -185,9 +185,26 @@ export default function ActivityDetailPage() {
 
               <Divider sx={{ mb: 3 }} />
 
-              <Typography variant="body1" sx={{ lineHeight: 1.8, fontSize: '1.05rem', color: '#1f2937', mb: 3 }}>
-                {activity.description}
-              </Typography>
+              <Box
+                className="activity-rich-content"
+                sx={{
+                  lineHeight: 1.9,
+                  fontSize: '1.05rem',
+                  color: '#1f2937',
+                  mb: 3,
+                  '& h1, & h2, & h3': { color: '#173b3b', fontWeight: 700, mt: 3, mb: 1.5, lineHeight: 1.3 },
+                  '& h1, & h2': { fontSize: '1.6rem' },
+                  '& h3': { fontSize: '1.3rem' },
+                  '& p': { my: 1.5, mt: 0 },
+                  '& ul, & ol': { pl: 4, my: 1.5 },
+                  '& li': { mb: 0.5 },
+                  '& img': { maxWidth: '100%', height: 'auto', borderRadius: 2, my: 2 },
+                  '& blockquote': { borderLeft: '4px solid #0f766e', ml: 0, pl: 2, my: 2, color: '#475569', fontStyle: 'italic' },
+                  '& a': { color: '#0f766e', fontWeight: 700 },
+                  '& pre': { bgcolor: '#0f172a', color: '#f8fafc', p: 2, borderRadius: 1, overflow: 'auto' },
+                }}
+                dangerouslySetInnerHTML={{ __html: activity.description || '' }}
+              />
 
               {activity.details && (
                 <Box sx={{ bgcolor: '#f3f8f7', borderRadius: 2, p: 3 }}>
