@@ -1,0 +1,90 @@
+# Vercel Production Environment Variables Template
+# Copy and paste these values into Vercel Dashboard
+# Location: https://vercel.com/dashboard/antuf/settings/environment-variables
+
+# ════════════════════════════════════════════════════════════════════════════════
+# CRITICAL VARIABLES (MUST ADD - Sliders won't work without these)
+# ════════════════════════════════════════════════════════════════════════════════
+
+# Database Connection
+DB_URL=mongodb://mongo:dwgsKvMSlfRFpdWFTVCkjhElACYSECDl@shuttle.proxy.rlwy.net:47163
+
+# NextAuth Configuration
+NEXTAUTH_SECRET=ff39b85c4ec7d2a97c240ba4e9a1db27630e9f3ce02731e5e4622d6bcf9c74e7
+NEXTAUTH_URL=https://antuf.org
+NEXTAUTH_URL_INTERNAL=https://antuf.org
+
+# ════════════════════════════════════════════════════════════════════════════════
+# OAUTH & AUTHENTICATION (Required for login features)
+# ════════════════════════════════════════════════════════════════════════════════
+
+# Google OAuth
+GOOGLE_CLIENT_ID=349121129295-44pcbd13jl3qfcf1lqakn5jjckmtri9r.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+GOOGLE_API_KEY=AIzaSyA9WDyVexsB7Ezcf4BW51reOHIU3H0n6fg
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=Ov23liHhOrNTMMlMppZW
+GITHUB_CLIENT_SECRET=ecfbc0376fd624e53a227e522cc3095f258173b6
+
+# ════════════════════════════════════════════════════════════════════════════════
+# MEDIA & FILE STORAGE (Required for image uploads)
+# ════════════════════════════════════════════════════════════════════════════════
+
+# Cloudinary (Image hosting)
+CLOUDINARY_CLOUD_NAME=dfu758f7t
+CLOUDINARY_API_KEY=716736663386284
+CLOUDINARY_API_SECRET=Tp89Vv77JsiXImfpRvifX1y1pKQ
+
+# ════════════════════════════════════════════════════════════════════════════════
+# PAYMENT PROCESSING (Required for checkout)
+# ════════════════════════════════════════════════════════════════════════════════
+
+# Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51RYghWI1GT4gvU5DAuYW7o5SuuVIonB1Mhb48jTw48wDlVOUjDVvjGmgWGxseXvfrbRiRW9THFKeQCay3WsxyYpk007H6JvwWi
+STRIPE_SECRET_KEY=sk_test_51SE8BUI842Eoe4ZfcoDAWqlAdrDac9ch09GrWrbv18vzY1cR14z3oP7SO6bUTMurTHxecZCEZxghKFOtxaCVEqbq00iMeP941O
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
+
+# ════════════════════════════════════════════════════════════════════════════════
+# SECURITY & CAPTCHA
+# ════════════════════════════════════════════════════════════════════════════════
+
+# reCAPTCHA
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LfcX_QrAAAAAONk16hPK676Wga-N9tHlFSf-D5F
+RECAPTCHA_SECRET_KEY=6LfcX_QrAAAAAF8oIdu10tJjMtE7_rYlM6Wn77-h
+
+# ════════════════════════════════════════════════════════════════════════════════
+# CODE EXECUTION & API
+# ════════════════════════════════════════════════════════════════════════════════
+
+# Judge0 (Code compiler API)
+NEXT_PUBLIC_JUDGE0_API_KEY=bed7cbad0emsh3064b3ad56470aap1b3ea1jsn58e572615934
+
+# ════════════════════════════════════════════════════════════════════════════════
+# STREAMING & REAL-TIME COMMUNICATION
+# ════════════════════════════════════════════════════════════════════════════════
+
+# Stream API (Real-time messaging/video)
+NEXT_PUBLIC_STREAM_API_KEY=c9587tt8muyq
+STREAM_API_SECRET=yewhg673tgx7txb5quwj4jsprurxkaqqptttjzm3b5yfrf5mux6ts5yvhb28pjqa
+
+# ════════════════════════════════════════════════════════════════════════════════
+# ADMIN CONFIGURATION
+# ════════════════════════════════════════════════════════════════════════════════
+
+ADMIN_EMAIL=your-admin-email@example.com
+
+# ════════════════════════════════════════════════════════════════════════════════
+# OPTIONAL: Payment Gateways (Use if needed)
+# ════════════════════════════════════════════════════════════════════════════════
+
+# RAZORPAY_CLIENT_ID=your_razorpay_id
+# RAZORPAY_CLIENT_SECRET=your_razorpay_secret
+# PAYPAL_CLIENT_ID=your_paypal_id
+# PAYPAL_CLIENT_SECRET=your_paypal_secret
+
+# ════════════════════════════════════════════════════════════════════════════════
+# OPTIONAL: Email Service
+# ════════════════════════════════════════════════════════════════════════════════
+
+# RESEND_API_KEY=re_be2dj4Fi_FPtHBPowMu4h9zMvRN13X77J

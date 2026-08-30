@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Apply other global styles */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Roboto", sans-serif; /* Example font-family */
+  background-color: #000000; /* Example background color */
+  overflow-x: hidden;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+ img {
+  width: 100%;
+ 
+
+  height: auto;
+} 
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+
+/* markdown editor */
+.rc-md-editor,
+.rc-md-navigation,
+.editor-container,
+.custom-html-style {
+  background: #2b3035 !important;
+  color: rgb(255, 255, 255) !important;
+}
+.rc-md-editor table th,
+.rc-md-editor table tr {
+  background-color: #2b3035 !important;
+  color: white;
+  border: 2px solid rgb(13, 218, 13) !important;
+}
+.custom-html-style table td {
+  background-color: #2b3035;
+}
+.rc-md-editor a {
+  color: rgb(2, 150, 22);
+}
+.section.sec-md.visible,
+.section.sec-md.visible textarea {
+  background-color: #2b3035 !important;
+  color: white !important;
+}
+
+.button-wrap span:hover {
+  color: GREEN !important;
+}
+
+.button-wrap {
+  color: GREEN !important;
+}
+
+blockquote p {
+  color: white;
+}
+pre.hljs {
+  background-color: #2b3035 !important;
+  color: white;
+  border: 1px solid rgb(89, 92, 89);
+}
+pre.hljs code {
+  background-color: transparent;
+  font-size: "300px";
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+th {
+  background-color: "#8A12FC";
+  color: #fff;
+}
+/* markdown blockquote */
+blockquote {
+  background: #000;
+  color: #999;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 1em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: aqua;
+  content: open-quote;
+  font-size: 6em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+
+p a {
+  color: aqua;
+  font-size: 2em;
+  background-color: #2b3035 !important;
+}
+
+/* pre code, */
+.hljs-title {
+  color: #999 !important;
+}
+.markdown-preview h1 h2 h3 h4 h5 h6 {
+  color: "green" !important;
+}
+
+.css-1ygil4i-MuiToolbar-root {
+  min-height: 0px;
+}
+
+.css-vs67rh {
+  padding-top: -1px !important;
+}
