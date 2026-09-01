@@ -25,7 +25,7 @@ export default function Navbar() {
               <PhoneInTalkIcon />
             </IconButton>
             <Typography variant="body2" sx={styles.contactText}>
-              ++977-01-4602761
+              ++977-01-4612758
             </Typography>
           </Box>
 

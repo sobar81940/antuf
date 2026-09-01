@@ -73,7 +73,7 @@ const SupportChatWidget = () => {
     },
     {
       question: "How can I contact support?",
-      answer: "You can reach us via this chat widget, email at support@antuf.org, or call us at +977-1-XXXXXXX.",
+      answer: "You can reach us via this chat widget, email at support@antuf.org, or call us at +977-1-4612758.",
     },
     {
       question: "How do I become a member?",

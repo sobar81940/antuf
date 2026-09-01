@@ -7,39 +7,36 @@ import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/footer/Footer';
 
 const icons = [Flag, Groups, Gavel, TrendingUp, VolunteerActivism, Public];
-const fallback = {
-  headerTitle: 'हाम्रो इतिहास', headerTitleEn: 'Our History & Journey',
-  headerSubtitle: 'श्रमिक एकता, अधिकार र सामाजिक न्यायको यात्रामा ANTUF',
-  intro: 'नेपालका श्रमिकहरूको आवाजलाई संगठित गर्दै ANTUF ले दशकौंदेखि अधिकार, सम्मान र समानताको अभियान अघि बढाउँदै आएको छ।',
-  stats: [
-    { value: '50,000+', label: 'सदस्य संख्या', description: 'देशभरका सक्रिय सदस्यहरू' },
-    { value: '100+', label: 'सफल आन्दोलनहरू', description: 'श्रमिक अधिकारका लागि' },
-    { value: '5,00,000+', label: 'प्रभावित श्रमिकहरू', description: 'प्रत्यक्ष लाभान्वित' },
-    { value: '77', label: 'जिल्ला समितिहरू', description: 'सबै जिल्लामा उपस्थिति' },
-  ],
-  milestones: [
-    { year: '२०४५ (1988)', title: 'संगठनको स्थापना / Organization Founded', description: 'नेपाल ट्रेड युनियन फेडरेशन (ANTUF) को स्थापना भएको थियो।' },
-    { year: '२०५० (1993)', title: 'राष्ट्रिय सम्मेलन / National Convention', description: 'पहिलो राष्ट्रिय सम्मेलन सफलतापूर्वक सम्पन्न भयो।' },
-    { year: '२०५८ (2001)', title: 'श्रमिक अधिकार संरक्षण / Workers Rights Protection', description: 'श्रमिक अधिकारका लागि ठूलो आन्दोलन सफल भयो।' },
-    { year: '२०६३ (2006)', title: "जनआन्दोलन सहभागिता / People's Movement Participation", description: 'ऐतिहासिक जनआन्दोलनमा महत्वपूर्ण भूमिका खेलेको।' },
-    { year: '२०७२ (2015)', title: 'भूकम्प राहत कार्य / Earthquake Relief', description: 'विनाशकारी भूकम्पपछि श्रमिकहरूको राहत र पुनर्स्थापना।' },
-    { year: '२०७८ (2021)', title: 'डिजिटल युग / Digital Era', description: 'डिजिटल प्रणालीमार्फत सेवा विस्तार र आधुनिकीकरण।' },
-  ],
-  visionTitle: 'हाम्रो दृष्टिकोण',
-  vision: 'नेपालका सबै श्रमिकहरूको अधिकार सुरक्षित गर्दै सामाजिक न्याय र समानताको स्थापना गर्ने हाम्रो दृष्टिकोण रहेको छ।',
-};
 
 export default function HistoryPage() {
   const [pageData, setPageData] = useState<any>(null);
-  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/history').then((response) => response.json())
-      .then((result) => setPageData(result.success ? result.data : fallback))
-      .catch(() => { setError(true); setPageData(fallback); });
+    fetch('/api/history')
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.success && result.data) setPageData(result.data);
+        else setPageData(null);
+      })
+      .catch(() => setPageData(null))
+      .finally(() => setLoading(false));
   }, []);
 
-  if (!pageData) return <><Navbar /><Box sx={{ minHeight: '60vh', display: 'grid', placeItems: 'center' }}><CircularProgress /></Box><Footer /></>;
+  if (loading) return <><Navbar /><Box sx={{ minHeight: '60vh', display: 'grid', placeItems: 'center' }}><CircularProgress /></Box><Footer /></>;
+
+  if (!pageData)
+    return (
+      <>
+        <Navbar />
+        <Box sx={{ minHeight: '60vh', display: 'grid', placeItems: 'center', bgcolor: '#f4f1eb' }}>
+          <Alert severity="info" sx={{ maxWidth: 540, mx: 'auto' }}>
+            No history content has been published yet. Please check back later.
+          </Alert>
+        </Box>
+        <Footer />
+      </>
+    );
 
   return <>
     <Navbar />
@@ -56,7 +53,6 @@ export default function HistoryPage() {
         </Container>
       </Box>
       <Container maxWidth="lg" sx={{ mt: { xs: -4, md: -6 }, position: 'relative' }}>
-        {error && <Alert severity="warning" sx={{ mb: 2 }}>History content is being shown from the latest available copy.</Alert>}
         <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, bgcolor: '#fffdf9', border: '1px solid #e5ded3', borderRadius: 1 }}>
           <Typography sx={{ maxWidth: 780, fontSize: { xs: '1.15rem', md: '1.4rem' }, lineHeight: 1.8, color: '#3e5058' }}>{pageData.intro}</Typography>
           <Grid container spacing={2} sx={{ mt: 4 }}>{pageData.stats?.map((stat, index) => <Grid key={`${stat.label}-${index}`} size={{ xs: 6, md: 3 }}><Box sx={{ borderTop: '3px solid #e76f51', pt: 2, height: '100%' }}><Typography sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 800, color: '#102c3b' }}>{stat.value}</Typography><Typography sx={{ fontWeight: 700, mt: 1 }}>{stat.label}</Typography><Typography variant="body2" sx={{ color: '#68777b', mt: .5 }}>{stat.description}</Typography></Box></Grid>)}</Grid>

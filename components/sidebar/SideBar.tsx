@@ -72,7 +72,7 @@ const menuItems = [
     icon: <PostAddSharpIcon />,
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
     items: [
-      { label: "Articles", path: "create/post" },
+      { label: "Information", path: "create/post" },
       { label: "Video Content", path: "create/video" },
       { label: "Slider Management", path: "slider/list" },
       { label: "Nav Menu Manager", path: "navmenu" },

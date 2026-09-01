@@ -412,7 +412,7 @@ export default function AffiliatesPage() {
               तपाईंको संगठन ANTUF सँग सम्बद्ध भई श्रमिक अधिकारको संयुक्त आवाज बन्न चाहनुहुन्छ भने हामीलाई सम्पर्क गर्नुहोस्।
             </Typography>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-              📧 info@antuf.org.np | 📞 +977-1-4567890
+              📧 info@antuf.org.np | 📞 +977-1-4612758
             </Typography>
           </Paper>
         </Container>

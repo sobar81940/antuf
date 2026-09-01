@@ -169,7 +169,7 @@ export default function SuccessPage() {
                 प्रश्नहरू छन्? | Have questions?
               </Typography>
               <Typography variant="body1" sx={{ fontWeight: 600, color: '#1976d2' }}>
-                सम्पर्क: info@antuf.org | फोन: +977-01-XXXXXXX
+                सम्पर्क: info@antuf.org | फोन: +977-01-4612758
               </Typography>
             </Box>
           </Box>

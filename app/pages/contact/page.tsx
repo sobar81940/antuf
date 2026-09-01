@@ -122,7 +122,7 @@ const ContactUs = () => {
     {
       icon: <PhoneIcon sx={{ fontSize: 40, color: "#1976d2" }} />,
       title: language === 'en' ? "Call Us" : "फोन गर्नुहोस्",
-      content: "+977-1-XXXXXXX",
+      content: "+977-1-4612758",
       description: language === 'en' ? "Mon-Fri, 10:00 AM - 5:00 PM NPT" : "सोम-शुक्र, बिहान १०:०० - साँझ ५:०० NPT"
     },
     {

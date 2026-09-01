@@ -143,6 +143,9 @@ export default function ClientSaid() {
     speed: 100,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
     focusOnSelect: true,
     initialSlide: 0,
     responsive: [

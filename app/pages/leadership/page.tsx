@@ -266,27 +266,28 @@ export default function RepresentativesPage() {
                     overflow: 'hidden',
                     bgcolor: '#fff',
                     border: '1px solid rgba(16,44,59,.08)',
+                    boxShadow: '0 12px 32px rgba(16,44,59,.08)',
                     transition: 'transform .25s ease, box-shadow .25s ease',
                     '&:hover': { transform: 'translateY(-6px)', boxShadow: '0 16px 36px rgba(16,44,59,.12)' },
                   }}
                 >
-                  <Box sx={{ position: 'relative', '& img': { width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', display: 'block' } }}>
+                  <Box sx={{ position: 'relative', '& img': { width: '100%', height: { xs: 260, sm: 280, md: 300 }, objectFit: 'cover', display: 'block' } }}>
                     <img src={rep.image} alt={rep.nameEn || rep.name} loading="lazy" />
-                    <Chip
-                      size="small"
-                      label={rep.positionEn || rep.position}
-                      sx={{ position: 'absolute', top: 12, left: 12, bgcolor: COLORS.green, color: '#fff', fontWeight: 700 }}
-                    />
                   </Box>
-                  <CardContent sx={{ p: 2.5, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                    <Box sx={{ minWidth: 0 }}>
-                      <Typography component="h3" sx={{ color: COLORS.navy, fontWeight: 800, fontSize: '1.15rem' }}>
+                  <CardContent sx={{ p: 2.5, display: 'flex', flexDirection: 'column', gap: 1.5, minWidth: 0 }}>
+                    <Box>
+                      <Chip
+                        label={rep.positionEn || rep.position}
+                        sx={{ bgcolor: COLORS.coral, color: '#fff', fontWeight: 700, letterSpacing: 0.5, mb: 1.5 }}
+                      />
+                      <Typography component="h3" sx={{ color: COLORS.navy, fontWeight: 800, fontSize: { xs: '1.15rem', md: '1.3rem' }, lineHeight: 1.2 }}>
                         {rep.name}
                       </Typography>
-                      <Typography sx={{ color: COLORS.gray, fontSize: '.9rem' }}>
-                        {rep.nameEn}{rep.position ? ` · ${rep.position}` : ''}
-                      </Typography>
+                      <Typography sx={{ color: COLORS.gray, fontWeight: 500 }}>{rep.nameEn}</Typography>
                     </Box>
+                    {(rep.bio || rep.bioEn) && (
+                      <Typography sx={{ color: COLORS.gray, fontSize: '.9rem' }}>{rep.bio || rep.bioEn}</Typography>
+                    )}
                     {renderContacts(rep)}
                     {renderSocials(rep)}
                   </CardContent>
@@ -322,8 +323,8 @@ export default function RepresentativesPage() {
                 <Box component="a" href="mailto:info@antuf.org.np" sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'inherit', textDecoration: 'none', '&:hover': { color: '#fff' } }}>
                   <EmailIcon fontSize="small" /> info@antuf.org.np
                 </Box>
-                <Box component="a" href="tel:+97714567890" sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'inherit', textDecoration: 'none', '&:hover': { color: '#fff' } }}>
-                  <PhoneIcon fontSize="small" /> +977-1-4567890
+                <Box component="a" href="tel:+97714612758" sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'inherit', textDecoration: 'none', '&:hover': { color: '#fff' } }}>
+                  <PhoneIcon fontSize="small" /> +977-1-4612758
                 </Box>
               </Box>
             </Card>

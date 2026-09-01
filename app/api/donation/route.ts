@@ -24,7 +24,7 @@ export async function GET(request) {
                 bankDetails: {
                     bankName: "Nepal Bank Limited",
                     accountName: "ANTUF Nepal",
-                    accountNumber: "01234567890",
+                    accountNumber: "01234612758",
                     branch: "Kathmandu, Nepal",
                 },
                 paymentDetails: {
@@ -33,7 +33,7 @@ export async function GET(request) {
                     khalti: "",
                 },
                 contactEmail: "donate@antuf.org.np",
-                contactPhone: "+977-1-4567890",
+                contactPhone: "+977-1-4612758",
                 helpText: "दानसम्बन्धी कुनै प्रश्न भए हामीलाई सम्पर्क गर्नुहोस्:",
             };
         }

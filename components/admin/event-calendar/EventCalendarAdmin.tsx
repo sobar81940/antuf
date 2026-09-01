@@ -318,7 +318,7 @@ const EventCalendarAdmin = () => {
       showSnackbar("Please enter valid latitude and longitude", "error");
       return;
     }
-    const url = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.9849453686277!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s!2z${latitude}N${longitude}E!5e0!3m2!1sen!2snp!4v1234567890`;
+    const url = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.9849453686277!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s!2z${latitude}N${longitude}E!5e0!3m2!1sen!2snp!4v1234612758`;
     setMapUrl(url);
     setFormData((prev) => ({
       ...prev,
@@ -1297,7 +1297,7 @@ const EventCalendarAdmin = () => {
                         fullWidth
                         value={formData.organizer.phone}
                         onChange={(e) => handleOrganizerChange("phone", e.target.value)}
-                        placeholder="+977 1234567890"
+                        placeholder="+977 1234612758"
                         variant="outlined"
                         sx={{
                           "& .MuiOutlinedInput-root": {

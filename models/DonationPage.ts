@@ -37,7 +37,7 @@ const DonationPageSchema = new mongoose.Schema(
             },
             accountNumber: {
                 type: String,
-                default: "01234567890",
+                default: "01234612758",
             },
             branch: {
                 type: String,
@@ -64,7 +64,7 @@ const DonationPageSchema = new mongoose.Schema(
         },
         contactPhone: {
             type: String,
-            default: "+977-1-4567890",
+            default: "+977-1-4612758",
         },
         helpText: {
             type: String,

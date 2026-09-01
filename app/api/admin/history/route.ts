@@ -14,7 +14,24 @@ export async function GET() {
     if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     await dbConnect();
     const page = await HistoryPage.findOne({ isActive: true });
-    return NextResponse.json({ success: true, data: page || await HistoryPage.create({}) });
+    // Never seed demo content into the database — return a blank editor page instead.
+    // The public history page only shows what the admin actually saves.
+    return NextResponse.json({
+        success: true,
+        data:
+            page ||
+            {
+                headerTitle: "",
+                headerTitleEn: "",
+                headerSubtitle: "",
+                intro: "",
+                stats: [],
+                milestones: [],
+                visionTitle: "",
+                vision: "",
+                isActive: true,
+            },
+    });
 }
 
 export async function PUT(request: Request) {

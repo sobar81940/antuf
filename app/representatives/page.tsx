@@ -375,7 +375,7 @@ export default function RepresentativesPage() {
               श्रमिक अधिकार र सेवासम्बन्धी जानकारीका लागि हामीलाई सम्पर्क गर्नुहोस्।
             </Typography>
             <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-              📧 info@antuf.org.np | 📞 +977-1-4567890
+              📧 info@antuf.org.np | 📞 +977-1-4612758
             </Typography>
           </Paper>
         </Container>
