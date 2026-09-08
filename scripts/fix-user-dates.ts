@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 // MongoDB URI from environment (Railway production DB)
-const MONGODB_URI = 'mongodb://mongo:dwgsKvMSlfRFpdWFTVCkjhElACYSECDl@shuttle.proxy.rlwy.net:47163';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/antuf';
 
 async function fixUserDates() {
   try {

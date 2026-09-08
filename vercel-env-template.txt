@@ -7,42 +7,42 @@
 # ════════════════════════════════════════════════════════════════════════════════
 
 # Database Connection
-DB_URL=mongodb://mongo:dwgsKvMSlfRFpdWFTVCkjhElACYSECDl@shuttle.proxy.rlwy.net:47163
+DB_URL=<your-mongodb-connection-string>
 
 # NextAuth Configuration
-NEXTAUTH_SECRET=ff39b85c4ec7d2a97c240ba4e9a1db27630e9f3ce02731e5e4622d6bcf9c74e7
-NEXTAUTH_URL=https://antuf.org
-NEXTAUTH_URL_INTERNAL=https://antuf.org
+NEXTAUTH_SECRET=<generate-a-random-secret>
+NEXTAUTH_URL=<your-production-url>
+NEXTAUTH_URL_INTERNAL=<your-internal-production-url>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # OAUTH & AUTHENTICATION (Required for login features)
 # ════════════════════════════════════════════════════════════════════════════════
 
 # Google OAuth
-GOOGLE_CLIENT_ID=349121129295-44pcbd13jl3qfcf1lqakn5jjckmtri9r.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
-GOOGLE_API_KEY=AIzaSyA9WDyVexsB7Ezcf4BW51reOHIU3H0n6fg
+GOOGLE_CLIENT_ID=<your-google-client-id>
+GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+GOOGLE_API_KEY=<your-google-api-key>
 
 # GitHub OAuth
-GITHUB_CLIENT_ID=Ov23liHhOrNTMMlMppZW
-GITHUB_CLIENT_SECRET=ecfbc0376fd624e53a227e522cc3095f258173b6
+GITHUB_CLIENT_ID=<your-github-client-id>
+GITHUB_CLIENT_SECRET=<your-github-client-secret>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # MEDIA & FILE STORAGE (Required for image uploads)
 # ════════════════════════════════════════════════════════════════════════════════
 
 # Cloudinary (Image hosting)
-CLOUDINARY_CLOUD_NAME=dfu758f7t
-CLOUDINARY_API_KEY=716736663386284
-CLOUDINARY_API_SECRET=Tp89Vv77JsiXImfpRvifX1y1pKQ
+CLOUDINARY_CLOUD_NAME=<your-cloudinary-cloud-name>
+CLOUDINARY_API_KEY=<your-cloudinary-api-key>
+CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # PAYMENT PROCESSING (Required for checkout)
 # ════════════════════════════════════════════════════════════════════════════════
 
 # Stripe
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51RYghWI1GT4gvU5DAuYW7o5SuuVIonB1Mhb48jTw48wDlVOUjDVvjGmgWGxseXvfrbRiRW9THFKeQCay3WsxyYpk007H6JvwWi
-STRIPE_SECRET_KEY=sk_test_51SE8BUI842Eoe4ZfcoDAWqlAdrDac9ch09GrWrbv18vzY1cR14z3oP7SO6bUTMurTHxecZCEZxghKFOtxaCVEqbq00iMeP941O
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<your-stripe-publishable-key>
+STRIPE_SECRET_KEY=<your-stripe-secret-key>
 STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
 
 # ════════════════════════════════════════════════════════════════════════════════
@@ -50,23 +50,23 @@ STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
 # ════════════════════════════════════════════════════════════════════════════════
 
 # reCAPTCHA
-NEXT_PUBLIC_RECAPTCHA_SITE_KEY=6LfcX_QrAAAAAONk16hPK676Wga-N9tHlFSf-D5F
-RECAPTCHA_SECRET_KEY=6LfcX_QrAAAAAF8oIdu10tJjMtE7_rYlM6Wn77-h
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=<your-recaptcha-site-key>
+RECAPTCHA_SECRET_KEY=<your-recaptcha-secret-key>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # CODE EXECUTION & API
 # ════════════════════════════════════════════════════════════════════════════════
 
 # Judge0 (Code compiler API)
-NEXT_PUBLIC_JUDGE0_API_KEY=bed7cbad0emsh3064b3ad56470aap1b3ea1jsn58e572615934
+NEXT_PUBLIC_JUDGE0_API_KEY=<your-judge0-api-key>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # STREAMING & REAL-TIME COMMUNICATION
 # ════════════════════════════════════════════════════════════════════════════════
 
 # Stream API (Real-time messaging/video)
-NEXT_PUBLIC_STREAM_API_KEY=c9587tt8muyq
-STREAM_API_SECRET=yewhg673tgx7txb5quwj4jsprurxkaqqptttjzm3b5yfrf5mux6ts5yvhb28pjqa
+NEXT_PUBLIC_STREAM_API_KEY=<your-stream-api-key>
+STREAM_API_SECRET=<your-stream-api-secret>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # ADMIN CONFIGURATION
