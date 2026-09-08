@@ -54,6 +54,17 @@ type Representative = {
 };
 
 const FEATURED_POSITION = 'अध्यक्ष';
+const POSITION_ORDER: Record<string, number> = {
+  'अध्यक्ष': 0,
+  'वरिष्ठ उपाध्यक्ष': 1,
+  'उपाध्यक्ष': 2,
+  'महासचिव': 3,
+  'उपमहासचिव': 4,
+  'सचिव': 5,
+  'कोषाध्यक्ष': 6,
+  'सदस्य': 7,
+  'अन्य': 8,
+};
 
 export default function RepresentativesPage() {
   const [representatives, setRepresentatives] = useState<Representative[]>([]);
@@ -84,9 +95,21 @@ export default function RepresentativesPage() {
 
   const { featured, members } = useMemo(() => {
     const lead = representatives.find((rep) => rep.position === FEATURED_POSITION);
+    const orderedRepresentatives = (lead ? representatives.filter((rep) => rep._id !== lead._id) : representatives)
+      .map((rep, index) => ({ rep, index }))
+      .sort((a, b) => {
+        const positionDifference = (POSITION_ORDER[a.rep.position] ?? Number.MAX_SAFE_INTEGER)
+          - (POSITION_ORDER[b.rep.position] ?? Number.MAX_SAFE_INTEGER);
+        if (positionDifference !== 0) return positionDifference;
+
+        const displayOrderDifference = (a.rep.displayOrder ?? 0) - (b.rep.displayOrder ?? 0);
+        return displayOrderDifference !== 0 ? displayOrderDifference : a.index - b.index;
+      })
+      .map(({ rep }) => rep);
+
     return {
       featured: lead || null,
-      members: lead ? representatives.filter((rep) => rep._id !== lead._id) : representatives,
+      members: orderedRepresentatives,
     };
   }, [representatives]);
 
