@@ -100,7 +100,7 @@ export default function MobileAuthForm({ register }: { register: boolean }) {
               slotProps={{ htmlInput: { minLength: register ? 6 : 1 } }} helperText={register ? 'Use at least 6 characters.' : undefined} />
             {register && <TextField label="Organization / Union" name="organization" autoComplete="organization" required disabled={busy} />}
             {register && <ReCAPTCHA ref={captcha}
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LfcX_QrAAAAAONk16hPK676Wga-N9tHlFSf-D5F'}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
               asyncScriptOnLoad={() => setCaptchaReady(true)}
               onChange={setToken} onExpired={() => setToken(null)}
               onErrored={() => { setToken(null); setError('CAPTCHA could not load. Check your connection and reload the page.'); }} />}

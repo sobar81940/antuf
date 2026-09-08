@@ -317,7 +317,7 @@ const LoginModal = ({ open, handleClose }) => {
 
           {activeTab === 1 && (
             <ReCAPTCHA
-              sitekey="6LfcX_QrAAAAAONk16hPK676Wga-N9tHlFSf-D5F"
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
               onChange={setRecaptchaToken}
             />
           )}
@@ -685,7 +685,7 @@ export default LoginModal;
 
 //           {activeTab === 1 && (
 //             <ReCAPTCHA
-//               sitekey="6LfcX_QrAAAAAONk16hPK676Wga-N9tHlFSf-D5F"
+//               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
 //               onChange={setRecaptchaToken}
 //             />
 //           )}

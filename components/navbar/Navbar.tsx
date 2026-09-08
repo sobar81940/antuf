@@ -253,7 +253,7 @@ const Navbar = () => {
 
               {status === "authenticated" ? (
                 <img
-                  src={session?.user?.image || "https://res.cloudinary.com/dfu758f7t/image/upload/v1761664833/logo_mklloi.jpg"} // Fallback for default avatar
+                  src={session?.user?.image || "/images/og-default.jpg"}
                   alt="User Avatar"
                   style={{
                     width: "50px",

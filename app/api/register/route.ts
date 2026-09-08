@@ -7,7 +7,7 @@ import dbConnect from "@/utils/dbConnect";
 const verifyRecaptcha = async (token, retries = 3) => {
   if (token === 'DUMMY_TOKEN_FOR_DEV') return true;
 
-  const secretKey = "6LfcX_QrAAAAAF8oIdu10tJjMtE7_rYlM6Wn77-h";
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
   const url = "https://www.google.com/recaptcha/api/siteverify";
 
   const params = `secret=${secretKey}&response=${token}`;

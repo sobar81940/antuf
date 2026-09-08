@@ -43,7 +43,7 @@ CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
 # Stripe
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<your-stripe-publishable-key>
 STRIPE_SECRET_KEY=<your-stripe-secret-key>
-STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
+STRIPE_WEBHOOK_SECRET=<set-in-Netlify>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # SECURITY & CAPTCHA
@@ -72,19 +72,19 @@ STREAM_API_SECRET=<your-stream-api-secret>
 # ADMIN CONFIGURATION
 # ════════════════════════════════════════════════════════════════════════════════
 
-ADMIN_EMAIL=your-admin-email@example.com
+ADMIN_EMAIL=<set-in-Netlify>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # OPTIONAL: Payment Gateways (Use if needed)
 # ════════════════════════════════════════════════════════════════════════════════
 
-# RAZORPAY_CLIENT_ID=your_razorpay_id
-# RAZORPAY_CLIENT_SECRET=your_razorpay_secret
-# PAYPAL_CLIENT_ID=your_paypal_id
-# PAYPAL_CLIENT_SECRET=your_paypal_secret
+# RAZORPAY_CLIENT_ID=<set-in-Netlify>
+# RAZORPAY_CLIENT_SECRET=<set-in-Netlify>
+# PAYPAL_CLIENT_ID=<set-in-Netlify>
+# PAYPAL_CLIENT_SECRET=<set-in-Netlify>
 
 # ════════════════════════════════════════════════════════════════════════════════
 # OPTIONAL: Email Service
 # ════════════════════════════════════════════════════════════════════════════════
 
-# RESEND_API_KEY=re_be2dj4Fi_FPtHBPowMu4h9zMvRN13X77J
+# RESEND_API_KEY=<set-in-Netlify>

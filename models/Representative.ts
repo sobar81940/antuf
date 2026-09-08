@@ -73,7 +73,7 @@ const RepresentativeSchema = new mongoose.Schema(
         },
         image: {
             type: String,
-            default: "https://res.cloudinary.com/dfu758f7t/image/upload/v1735174800/default-avatar.png",
+            default: "https://placehold.co/400x400?text=Avatar",
         },
         bio: {
             type: String,
