@@ -129,7 +129,7 @@ export default function PresidentMessage({ externalOpen, onExternalClose }) {
               }}
             >
               <Avatar
-                src="/images/og-default.jpg"
+                src="https://res.cloudinary.com/dfu758f7t/image/upload/v1766723043/antuf/representatives/chzotbl6ymvjimrreuq4.png"
                 alt="President"
                 sx={{
                   width: { xs: 150, sm: 200 },
